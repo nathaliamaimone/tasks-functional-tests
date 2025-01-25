@@ -75,5 +75,18 @@ public class TasksTest {
 			driver.quit();
 		}
     }
-    
+	@Test
+	public void shouldSaveTaskSuccessfuly() throws MalformedURLException {
+		WebDriver driver = accessApplication();
+		try {
+			driver.findElement(By.id("addTodo")).click();
+			driver.findElement(By.id("task")).sendKeys("Teste Selenium/Nathalia");
+			driver.findElement(By.id("dueDate")).sendKeys("10/10/2040");
+			driver.findElement(By.id("saveButton")).click();
+			String message = driver.findElement(By.id("message")).getText();
+			Assert.assertEquals("Success!", message);
+		} finally {
+			driver.quit();
+		}
+	}
 }
