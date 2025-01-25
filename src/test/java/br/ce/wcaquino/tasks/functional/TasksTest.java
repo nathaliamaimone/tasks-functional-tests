@@ -12,8 +12,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class TasksTest {
-	
-	
 
     @SuppressWarnings("deprecation")
 	public WebDriver accessApplication() throws MalformedURLException {
@@ -32,6 +30,21 @@ public class TasksTest {
 
         return driver;
     }
+
+	@Test
+	public void shouldSaveTaskSuccessfuly() throws MalformedURLException {
+		WebDriver driver = accessApplication();
+		try {
+			driver.findElement(By.id("addTodo")).click();
+			driver.findElement(By.id("task")).sendKeys("Teste Selenium/Nathalia");
+			driver.findElement(By.id("dueDate")).sendKeys("10/10/2040");
+			driver.findElement(By.id("saveButton")).click();
+			String message = driver.findElement(By.id("message")).getText();
+			Assert.assertEquals("Success!", message);
+		} finally {
+			driver.quit();
+		}
+	}
 
     @Test
     public void shouldDontSaveTaskWithoutDescription() throws MalformedURLException {
@@ -75,18 +88,4 @@ public class TasksTest {
 			driver.quit();
 		}
     }
-	@Test
-	public void shouldSaveTaskSuccessfuly() throws MalformedURLException {
-		WebDriver driver = accessApplication();
-		try {
-			driver.findElement(By.id("addTodo")).click();
-			driver.findElement(By.id("task")).sendKeys("Teste Selenium/Nathalia");
-			driver.findElement(By.id("dueDate")).sendKeys("10/10/2040");
-			driver.findElement(By.id("saveButton")).click();
-			String message = driver.findElement(By.id("message")).getText();
-			Assert.assertEquals("Success!", message);
-		} finally {
-			driver.quit();
-		}
-	}
 }
